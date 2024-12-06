@@ -14,8 +14,8 @@ class AdminController extends Controller
     }
 
     public function upload(){
-        $departments = Departments::with('projects')->get();
-        return view('admin.upload', compact('deparments'));
+       
+        return view('admin.upload');
     }
 
     

@@ -24,9 +24,6 @@
     </section>
 
        
-
-     
-
     <!-- Main content -->
     <section class="content">
         <form action="{{route("project.store")}}" method="POST">
@@ -76,9 +73,8 @@
                 <label for="departments">Departments</label>
                 <select id="departments" class="form-control custom-select" name="departments">
                   <option selected disabled>Pilih Departments</option>
-                  @foreach ($departments as $item)
-                  <option value="{{$deparments->id}}">{{$departments->name_departments}}</option>
-                  @endforeach
+                  <option>On Hold</option>
+                 
                 </select>
               </div>
               <div class="form-group">

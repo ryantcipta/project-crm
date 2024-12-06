@@ -18,8 +18,5 @@ class Project extends Model
         'tugas_pending'
     ];
 
-    public function department()
-    {
-        return $this->belongsTo(Departments::class);
-    }
+   
 }
