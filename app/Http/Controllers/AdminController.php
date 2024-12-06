@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departments;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class AdminController extends Controller
     }
 
     public function upload(){
-        return view('admin.upload');
+        $departments = Departments::with('projects')->get();
+        return view('admin.upload', compact('deparments'));
     }
 
     

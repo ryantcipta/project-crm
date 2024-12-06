@@ -76,9 +76,9 @@
                 <label for="departments">Departments</label>
                 <select id="departments" class="form-control custom-select" name="departments">
                   <option selected disabled>Pilih Departments</option>
-                  <option>On Hold</option>
-                  <option>Canceled</option>
-                  <option>Success</option>
+                  @foreach ($departments as $item)
+                  <option value="{{$deparments->id}}">{{$departments->name_departments}}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="form-group">
