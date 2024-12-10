@@ -15,8 +15,19 @@ class Project extends Model
         'nama_project',
         'link',
         'keterangan',
-        'tugas_pending'
+        'tugas_pending',
+        'department_id',
+        'user_id'
     ];
 
+    public function department()
+    {
+        return $this->belongsTo(Departments::class, 'department_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
    
 }

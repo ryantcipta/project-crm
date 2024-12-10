@@ -15,6 +15,9 @@ class Departments extends Model
         'name_departments',
     ];
 
-    
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'department_id', 'id');
+    }
     
 }

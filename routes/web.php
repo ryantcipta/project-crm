@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -19,13 +20,14 @@ Route::get('/', function () {
     return view('users.index');
 });
 
-Route::get('/dashboard', function () {
-    return view ('dashboard');
-});
+Route::get('/dashboard', [AdminController::class, 'index']);
 
 Route::get('/upload', [AdminController::class, 'upload']);
 Route::post('/upload',[AdminController::class, 'store'])->name('project.store');
+Route::get('/upload/list',[AdminController::class, 'UploadList'])->name('upload.list');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+Route::get('/login', [AuthController::class, 'ShowLogin']);
