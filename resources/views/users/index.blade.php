@@ -27,9 +27,17 @@
         @endif
 
         <!-- Add Button -->
-        <div class="mb-3 text-end">
-            <a href="{{ route('users.create') }}" class="btn btn-primary">Tambah Pengguna</a>
+
+        <!-- Dealer Information -->
+        <div class="mb-4">
+            <strong>Kode Dealer:</strong>  <br>
+            <strong>Nama Dealer:</strong>
         </div>
+
+        <div class="mb-3 text-end">
+        <a href="{{ route('projects.create') }}" class="btn btn-primary">Tambah Project</a>
+        </div>
+
 
         <!-- Table -->
         <table class="table table-bordered table-striped">
@@ -40,6 +48,7 @@
                     <th>Nama Project</th>
                     <th>Link</th>
                     <th>Keterangan</th>
+                    <th>Akun</th>
                     <th>Video Tutorial</th>
                     <th>Aksi</th>
                 </tr>
@@ -55,6 +64,7 @@
                                 <a href="{{ $user->link }}" target="_blank" class="text-decoration-none">{{ $user->link }}</a>
                             </td>
                             <td>{{ $user->keterangan }}</td>
+                            <td>{{ $user->akun }}</td>
                             <td>
                                 @if($user->video_tutorial)
                                     <a href="{{ $user->video_tutorial }}" target="_blank" class="btn btn-sm btn-info">Lihat Video</a>
@@ -62,6 +72,7 @@
                                     <span class="text-muted">Tidak tersedia</span>
                                 @endif
                             </td>
+                            
                             <td>
                                 <!-- Edit Button -->
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -78,12 +89,12 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">Tidak ada data pengguna.</td>
+                            <td colspan="8" class="text-center">Tidak ada data pengguna.</td>
                         </tr>
                     @endforelse
                 @else
                     <tr>
-                        <td colspan="7" class="text-center">Data tidak tersedia.</td>
+                        <td colspan="8" class="text-center">Data tidak tersedia.</td>
                     </tr>
                 @endisset
             </tbody>
