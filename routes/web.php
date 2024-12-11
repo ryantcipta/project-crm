@@ -31,3 +31,5 @@ Route::get('/users/create', [UserController::class, 'create'])->name('users.crea
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 Route::get('/login', [AuthController::class, 'ShowLogin']);
+Route::post('/login', [AuthController::class, 'Login'])->name('auth.login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

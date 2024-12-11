@@ -61,7 +61,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="{{route('logout')}}" class="dropdown-item">
             <i class="fas fa-sign-out-alt mr-2"></i> logout
             <span class="float-right text-muted text-sm"></span>
           </a>
@@ -102,7 +102,7 @@
           <img src="{{url("dist/img/default-profile.jpg")}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{Auth::user()->name}}</a>
         </div>
       </div>
 

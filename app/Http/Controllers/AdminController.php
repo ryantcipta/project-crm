@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function index(){
-
-        return view('dashboard');
+        $userCount = \App\Models\User::count();
+        $projectCount = \App\Models\Project::count();
+        return view('dashboard',compact('userCount','projectCount'));
     }
 
     public function upload(){

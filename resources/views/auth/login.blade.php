@@ -24,23 +24,45 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="../../index3.html" method="POST">
+      <form action="{{route("auth.login")}}" method="POST">
         @csrf
+        @error('login_gagal')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
+          <span class="alert-inner--text"><strong>Warning!</strong>  {{ $message }}</span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      @enderror
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
+          @error('email')
+          <div class="invalid-feedback">
+          {{ $message }}
+          </div>
+          @enderror
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          @error('password')
+          <div class="invalid-feedback">
+          {{ $message }}
+          </div>
+          @enderror
         </div>
         <div class="row">
           <div class="col-8">

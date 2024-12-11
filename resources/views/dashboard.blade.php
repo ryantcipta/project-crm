@@ -64,7 +64,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$userCount}}</h3>
 
                 <p>User Registrations</p>
               </div>
@@ -79,9 +79,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{$projectCount}}</h3>
 
-                <p>Unique Visitors</p>
+                <p>Projects Count</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
