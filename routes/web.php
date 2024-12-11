@@ -18,7 +18,7 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('users.index');
+    return view('auth.login');
 });
 
 
@@ -39,3 +39,6 @@ Route::post('/projects', [ProjectController::class, 'store'])->name('projects.st
 Route::get('/login', [AuthController::class, 'ShowLogin']);
 Route::post('/login', [AuthController::class, 'Login'])->name('auth.login');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register-page');
+Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
