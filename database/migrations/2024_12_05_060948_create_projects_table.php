@@ -9,17 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->string('departemen');
             $table->string('nama_project');
             $table->string('link');
-            $table->string('keterangan');
-            $table->string('tugas_pending');
+            $table->text('keterangan');
+            $table->string('video_tutorial')->nullable();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
