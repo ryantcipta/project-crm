@@ -19,7 +19,7 @@
             background: #fff;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
         }
         .btn-primary {
             background: #007bff;
@@ -30,7 +30,7 @@
             background: #0056b3;
         }
         footer {
-            margin-top: auto;
+            margin-top: 5rem;
             padding: 1rem;
             text-align: center;
             background: #343a40;
@@ -97,17 +97,51 @@
                     <input type="url" name="video_tutorial" id="video_tutorial" class="form-control" placeholder="Masukkan link video tutorial">
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Upload Project</button>
-            </form>
-        </div>
+                <div class="mb-3">
+                <label for="must_login" class="form-label">Harus Login</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio"
+                    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="must_login" id="must_login_yes" value="1" onclick="showLoginFields()">
+    <label class="form-check-label" for="must_login_yes">Ya</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="must_login" id="must_login_no" value="0" onclick="hideLoginFields()">
+    <label class="form-check-label" for="must_login_no">Tidak</label>
+</div>
+
+<div id="login-fields" style="display: none;">
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Masukkan username">
     </div>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2024 Aplikasi Laravel. All Rights Reserved.
-    </footer>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password">
+    </div>
+</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<button type="submit" class="btn btn-primary w-100">Upload Project</button>
+</form>
+</div>
+</div>
+
+<!-- Footer -->
+<footer>
+    &copy; 2024 Aplikasi Laravel. All Rights Reserved.
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function showLoginFields() {
+        document.getElementById("login-fields").style.display = "block";
+    }
+
+    function hideLoginFields() {
+        document.getElementById("login-fields").style.display = "none";
+    }
+</script>

@@ -16,7 +16,7 @@
 
   <style>
     body {
-      background-image: url('{{ asset('img/monyet.jpg') }}');
+      background-image: url('{{ asset('img/pp.jpg') }}');
       background-size: cover;
       color: #fff;
       font-family: 'Source Sans Pro', sans-serif;

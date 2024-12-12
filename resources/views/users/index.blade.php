@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Pengguna</title>
+    <title>Users</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
 
     <!-- Main Content -->
     <div class="container mt-4">
-        <h1 class="mb-4 text-center">Daftar Pengguna</h1>
+        <!-- <h1 class="mb-4 text-center">Daftar Pengguna</h1> -->
 
         <!-- Flash Message -->
         @if(session('success'))
@@ -48,7 +48,6 @@
                     <th>Nama Project</th>
                     <th>Link</th>
                     <th>Keterangan</th>
-                    <th>Akun</th>
                     <th>Video Tutorial</th>
                     <th>Aksi</th>
                 </tr>
@@ -64,7 +63,6 @@
                                 <a href="{{ $user->link }}" target="_blank" class="text-decoration-none">{{ $user->link }}</a>
                             </td>
                             <td>{{ $user->keterangan }}</td>
-                            <td>{{ $user->akun }}</td>
                             <td>
                                 @if($user->video_tutorial)
                                     <a href="{{ $user->video_tutorial }}" target="_blank" class="btn btn-sm btn-info">Lihat Video</a>
@@ -85,7 +83,7 @@
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus pengguna ini?')">Hapus</button>
                                     </form>
                                 @endif
-                            </td>
+                            </td>               
                         </tr>
                     @empty
                         <tr>
