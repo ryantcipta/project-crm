@@ -28,6 +28,7 @@ Route::get('/dashboard', [AdminController::class, 'index']);
 Route::get('/upload', [AdminController::class, 'upload']);
 Route::post('/upload',[AdminController::class, 'store'])->name('project.store');
 Route::get('/upload/list',[AdminController::class, 'UploadList'])->name('upload.list');
+Route::get('/users/list',[AdminController::class, 'LastSeen'])->name('users.list');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -45,3 +46,4 @@ Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register-page');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+

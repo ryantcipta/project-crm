@@ -66,12 +66,17 @@
           @enderror
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password_confirmation" class="form-control" placeholder="Retype password">
+          <input type="password" name="password_confirmation" class="form-control @error('password') is-invalid @enderror" placeholder="Retype password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          @error('password')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
         </div>
         <div class="row">
           <div class="col-12">

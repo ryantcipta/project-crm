@@ -1,21 +1,21 @@
 @extends('layout.app')
 
-@section('title','List Upload')
-
+@section('title','Users List')
+    
 @section('content')
-     <!-- Content Wrapper. Contains page content -->
+    <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>List Upload</h1>
+            <h1>Users List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">List Upload</li>
+              <li class="breadcrumb-item active">Users List</li>
             </ol>
           </div>
         </div>
@@ -29,46 +29,38 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">List Project</h3>
+                <h3 class="card-title">Users List</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Nama User</th>
-                    <th>Nama Project</th>
-                    <th>Link</th>
-                    <th>Keterangan</th>
-                    <th>Tugas Pending</th>
-                    
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Last Seen</th>
+                    <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
-                    {{-- @php
-                        $i = 1
-                    @endphp --}}
-
-                    @foreach ($project as $item)
+                    @foreach ($users as $user)
                     <tr>
-                      <td>{{$item->user->name ?? 'Kosong'}}</td>
-                      <td>{{$item->nama_project}}</td>
-                      <td>{{$item->link}}</td>
-                      <td>{{$item->keterangan}}</td>
-                      <td>{{$item->tugas_pending}}</td>
-                     
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->email}}
+                      </td>
+                      <td>{{Carbon\Carbon::parse($user->last_seen)->diffForHumans()}}</td>
+                      <td>
+                        <span 
+                            style="background-color: {{ $user->last_seen >= now()->subMinutes(2) ? 'green' : 'red' }};
+                                   color: white; 
+                                   padding: 5px 10px; 
+                                   border-radius: 15px;">
+                            {{ $user->last_seen >= now()->subMinutes(2) ? 'Online' : 'Offline' }}
+                        </span>
+                      </td>                                      
                     </tr>
                     @endforeach
                   </tbody>
-                  {{-- <tfoot>
-                  <tr>
-                    <th>Nama Project</th>
-                    <th>Link</th>
-                    <th>Keterangan</th>
-                    <th>Tugas Pending</th>
-                    
-                  </tr>
-                  </tfoot> --}}
                 </table>
               </div>
               <!-- /.card-body -->
