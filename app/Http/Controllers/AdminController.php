@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departments;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -49,7 +50,13 @@ class AdminController extends Controller
     }
 
     public function UploadList(){
-        $project = Project::all();
+        $project = Project::with('user')->get();
         return view ('admin.upload_list', compact('project'));
+    }
+
+    public function LastSeen(){
+
+        $users = User::orderBy('last_seen','DESC')->get();
+        return view('admin.users_list', compact('users'));
     }
 }
