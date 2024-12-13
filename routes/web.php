@@ -18,7 +18,7 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('users.index');
+    return view('auth.login');
 });
 
 
@@ -45,3 +45,8 @@ Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register-page');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+
+
+Route::get('forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('auth.forgot-password.send');
+

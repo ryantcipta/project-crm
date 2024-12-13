@@ -43,7 +43,7 @@
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Departemen</th>
                     <th>Nama Project</th>
                     <th>Link</th>
