@@ -7,10 +7,10 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function home()
     {
         $users = User::all(); // Mengambil semua data pengguna
-        return view('users.index', compact('users'));
+        return view('users.home', compact('users'));
     }
 
     public function create()
@@ -33,5 +33,12 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
+    }
+
+     // Tambahkan metode untuk menampilkan home.blade.php
+
+     public function index()
+    {
+        return view('users.index');
     }
 }
