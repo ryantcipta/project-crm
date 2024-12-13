@@ -18,7 +18,7 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('users.index');
+    return view('auth.login');
 });
 
 
@@ -36,6 +36,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/users/home', [UserController::class, 'home'])->name('users.home');
 
 Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
 Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
@@ -43,6 +44,9 @@ Route::post('/projects', [ProjectController::class, 'store'])->name('projects.st
 Route::get('/login', [AuthController::class, 'ShowLogin']);
 Route::post('/login', [AuthController::class, 'Login'])->name('auth.login');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::get('forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('auth.forgot-password.send');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register-page');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');

@@ -87,11 +87,14 @@
             color: #ecf0f1;
         }
         .footer {
-            position: absolute;
-            bottom: 20px;
-            text-align: center;
-            color: #7f8c8d;
-        }
+    position: fixed; /* Menggunakan fixed agar footer selalu terlihat di bawah */
+    left: 50%; /* Menempatkan footer di tengah */
+    bottom: 20px; /* Menjaga jarak dari bawah */
+    transform: translateX(-50%); /* Menggeser footer ke kiri agar pas di tengah */
+    text-align: center;
+    color: #7f8c8d;
+}
+
         body.dark-mode .footer {
             color: #95a5a6;
         }
@@ -136,7 +139,7 @@
 </div>
 
 <div class="footer">
-    <p>&copy; 2024 Project Management. All rights reserved.</p>
+    <p>&copy; 2024 CRM.</p>
 </div>
 
 <script>
