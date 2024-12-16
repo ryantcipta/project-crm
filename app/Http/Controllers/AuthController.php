@@ -29,15 +29,15 @@ class AuthController extends Controller
         // Cek jika data username dan password valid (sesuai) dengan data
         if (Auth::attempt($credential)) {
             // Kalau berhasil, simpan data user di variabel $user
-            $user = Auth::user();
+            // $user = Auth::user();
 
-            // Jika username adalah admincrm, arahkan ke halaman admin
-            if ($user->username === 'mdcrm') {
-                return redirect()->intended('/dashboard');
-            }
+            // // Jika username adalah admincrm, arahkan ke halaman admin
+            // if ($user->username === 'mdcrm') {
+            //     return redirect()->intended('/dashboard');
+            // }
 
             // Jika bukan admincrm, arahkan ke dashboard umum
-            return redirect()->intended('/users');
+            return redirect()->intended('/dashboard');
         }
 
         // Jika tidak ada data user yang valid, kembalikan lagi ke halaman login

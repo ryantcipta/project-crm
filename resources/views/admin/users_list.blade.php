@@ -36,8 +36,8 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Password</th>
                     <th>Last Seen</th>
                     <th>Status</th>
                   </tr>
@@ -45,8 +45,8 @@
                   <tbody>
                     @foreach ($users as $user)
                     <tr>
-                      <td>{{$user->name}}</td>
-                      <td>{{$user->email}}
+                      <td>{{$user->username}}</td>
+                      <td>{{$user->password}}
                       </td>
                       <td>{{Carbon\Carbon::parse($user->last_seen)->diffForHumans()}}</td>
                       <td>

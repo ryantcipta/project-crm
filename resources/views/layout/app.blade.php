@@ -102,7 +102,7 @@
           <img src="{{url("dist/img/default-profile.jpg")}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{Auth::user()->name}}</a>
+          <a href="#" class="d-block">{{Auth::user()->username}}</a>
         </div>
       </div>
 
@@ -147,6 +147,15 @@
             <i class="nav-icon fas fa-users"></i>
             <p>
               Users List
+              {{-- <span class="right badge badge-danger">New</span> --}}
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route("departments")}}" class="nav-link">
+            <i class="nav-icon fas fa-university"></i>
+            <p>
+              Departments
               {{-- <span class="right badge badge-danger">New</span> --}}
             </p>
           </a>

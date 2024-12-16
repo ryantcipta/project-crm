@@ -22,6 +22,8 @@
       </div><!-- /.container-fluid -->
     </section>
 
+ 
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -32,16 +34,25 @@
                 <h3 class="card-title">List Project</h3>
               </div>
               <!-- /.card-header -->
+              
+               {{-- notifikasi sukses --}}
+              @if ($sukses = Session::get('success'))
+              <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $sukses }}</strong>
+              </div>
+              @endif
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Nama User</th>
+                    <th>Username</th>
+                    <th>Departments</th>
                     <th>Nama Project</th>
                     <th>Link</th>
                     <th>Keterangan</th>
-                    <th>Tugas Pending</th>
-                    
+                    <th>Video Tutorial</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,12 +62,44 @@
 
                     @foreach ($project as $item)
                     <tr>
-                      <td>{{$item->user->name ?? 'Kosong'}}</td>
+                      <td>{{$item->user->username ?? 'Tidak ada'}}</td>
+                      <td>{{$item->department->name_departments ?? 'Tidak ada'}}</td>
                       <td>{{$item->nama_project}}</td>
-                      <td>{{$item->link}}</td>
+                      <td>
+                        @if ($item->link)
+                        <a href="{{ $item->link }}" target="_blank">Open Link</a>
+                        @else
+                            Kosong
+                        @endif
+                      </td>
                       <td>{{$item->keterangan}}</td>
-                      <td>{{$item->tugas_pending}}</td>
-                     
+                      <td>
+                        @if ($item->video_tutorial)
+                        <a href="{{ $item->video_tutorial}}" target="_blank">Open Video/PPT</a>
+                        @else
+                            Kosong
+                        @endif
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                            @if ($item->link)
+                                @php
+                                    $headers = @get_headers($item->link);
+                                    $isActive = $headers && strpos($headers[0], '200') !== false;
+                                @endphp
+                                <span class="badge {{ $isActive ? 'badge-success' : 'badge-danger' }}">
+                                    {{ $isActive ? 'Aktif' : 'Nonaktif' }}
+                                </span>
+                            @else
+                                <span class="badge badge-warning">Kosong</span>
+                            @endif
+                            
+                            
+                            <a href="{{route('project.edit',$item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;"><i class="fas fa-edit"></i></a>
+                        </div>
+                    </td>
+                    
+                    </td>
                     </tr>
                     @endforeach
                   </tbody>

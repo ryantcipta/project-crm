@@ -27,7 +27,7 @@ class AdminController extends Controller
             'nama_project' => 'required|string|max:255',
             'link' => 'required',
             'keterangan' => 'required|string|max:255',
-            'tugas_pending' => 'required|string|max:255',
+            'video_tutorial' => 'required|string|max:255',
             'department_id' => 'required|exists:departments,id',
             
         ]);
@@ -36,7 +36,7 @@ class AdminController extends Controller
         $project->nama_project = $validated['nama_project'];
         $project->link = $validated['link'];
         $project->keterangan = $validated['keterangan'];
-        $project->tugas_pending = $validated['tugas_pending'];
+        $project->video_tutorial = $validated['video_tutorial'];
         $project->department_id = $validated['department_id'];
         $project->user_id = auth()->id(); 
         $project->save();
@@ -50,7 +50,7 @@ class AdminController extends Controller
     }
 
     public function UploadList(){
-        $project = Project::with('user')->get();
+        $project = Project::with('user','department')->get();
         return view ('admin.upload_list', compact('project'));
     }
 
@@ -59,4 +59,39 @@ class AdminController extends Controller
         $users = User::orderBy('last_seen','DESC')->get();
         return view('admin.users_list', compact('users'));
     }
+
+    public function ShowEdit($id)
+    {
+       
+        $project = Project::findOrFail($id);
+        $departments = Departments::all();
+        return view('admin.upload_edit', compact('project', 'departments'));
+    }
+    public function update(Request $request, $id)
+    {
+        
+        $validated = $request->validate([
+            'nama_project' => 'required|string|max:255',
+            'link' => 'required',
+            'keterangan' => 'required|string|max:255',
+            'video_tutorial' => 'required|string|max:255',
+            'department_id' => 'required|exists:departments,id',
+        ]);
+    
+      
+        $project = Project::findOrFail($id);
+    
+        // Perbarui data project
+        $project->nama_project = $validated['nama_project'];
+        $project->link = $validated['link'];
+        $project->keterangan = $validated['keterangan'];
+        $project->video_tutorial = $validated['video_tutorial'];
+        $project->department_id = $validated['department_id'];
+        $project->save();
+    
+       
+        return redirect()->route('upload.list')->with('success', 'Data project berhasil diperbarui.');
+    }
+    
+
 }

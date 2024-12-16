@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DepartmentsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+use App\Models\Departments;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,15 @@ Route::get('/dashboard', [AdminController::class, 'index']);
 Route::get('/upload', [AdminController::class, 'upload']);
 Route::post('/upload',[AdminController::class, 'store'])->name('project.store');
 Route::get('/upload/list',[AdminController::class, 'UploadList'])->name('upload.list');
+Route::put('/project/{id}', [AdminController::class, 'update'])->name('project.update');
+Route::get('/project/{id}/edit',[AdminController::class, 'ShowEdit'])->name('project.edit');
 Route::get('/users/list',[AdminController::class, 'LastSeen'])->name('users.list');
+Route::get('/departments', [DepartmentsController::class, 'index'])->name('departments');
+Route::get('/departments/create', [DepartmentsController::class, 'create'])->name('create.departments');
+Route::post('/departments/create',[DepartmentsController::class, 'store'])->name('store.departments');
+Route::get('/departments/{id}/edit',[DepartmentsController::class, 'edit'])->name('edit.departments');
+Route::put('/departments/{id}',[DepartmentsController::class, 'update'])->name('update.departments');
+Route::delete('departments/{id}', [DepartmentsController::class, 'destroy'])->name('delete.departments');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

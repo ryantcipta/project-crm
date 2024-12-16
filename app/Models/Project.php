@@ -15,7 +15,7 @@ class Project extends Model
         'nama_project',
         'link',
         'keterangan',
-        'tugas_pending',
+        'video_tutorial',
         'department_id',
         'user_id'
     ];
