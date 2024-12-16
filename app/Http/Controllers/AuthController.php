@@ -67,7 +67,7 @@ class AuthController extends Controller
             'kode_dealer' => 'required|string|max:255',
             'nama_dealer' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         // Membuat pengguna baru
@@ -75,7 +75,7 @@ class AuthController extends Controller
             'kode_dealer' => $request->kode_dealer,
             'nama_dealer' => $request->nama_dealer,
             'username' => $request->username,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
         ]);
 
         return redirect()->route('auth.login')->with('success', 'Registration successful! Please login.');

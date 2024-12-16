@@ -304,6 +304,35 @@
     });
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Temukan semua tombol toggle status
+      const toggleButtons = document.querySelectorAll('.toggle-status');
+  
+      toggleButtons.forEach((button) => {
+          button.addEventListener('click', function () {
+              const parent = this.closest('div'); // Dapatkan parent div
+              const badge = parent.querySelector('.badge-status'); // Temukan badge status
+              
+              // Ambil status saat ini dari badge
+              const currentStatus = badge.getAttribute('data-status');
+  
+              // Toggle status
+              const newStatus = currentStatus === 'aktif' ? 'nonaktif' : 'aktif';
+  
+              // Perbarui badge
+              badge.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1); // Aktif/Nonaktif
+              badge.setAttribute('data-status', newStatus);
+              badge.classList.toggle('badge-success', newStatus === 'aktif');
+              badge.classList.toggle('badge-danger', newStatus === 'nonaktif');
+  
+              // Perbarui teks tombol
+              this.textContent = newStatus === 'aktif' ? 'Nonaktifkan' : 'Aktifkan';
+          });
+      });
+  });
+  </script>
+  
 </body>
 </html>
 

@@ -26,6 +26,13 @@
 
     <!-- Main content -->
     <section class="content">
+      {{-- notifikasi sukses --}}
+     @if ($sukses = Session::get('success'))
+     <div class="alert alert-success alert-block">
+       <button type="button" class="close" data-dismiss="alert">×</button>
+       <strong>{{ $sukses }}</strong>
+     </div>
+     @endif
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
@@ -35,13 +42,6 @@
               </div>
               <!-- /.card-header -->
               
-               {{-- notifikasi sukses --}}
-              @if ($sukses = Session::get('success'))
-              <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ $sukses }}</strong>
-              </div>
-              @endif
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -82,21 +82,20 @@
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
-                            @if ($item->link)
-                                @php
-                                    $headers = @get_headers($item->link);
-                                    $isActive = $headers && strpos($headers[0], '200') !== false;
-                                @endphp
-                                <span class="badge {{ $isActive ? 'badge-success' : 'badge-danger' }}">
-                                    {{ $isActive ? 'Aktif' : 'Nonaktif' }}
-                                </span>
-                            @else
-                                <span class="badge badge-warning">Kosong</span>
-                            @endif
-                            
-                            
-                            <a href="{{route('project.edit',$item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;"><i class="fas fa-edit"></i></a>
-                        </div>
+                          <span class="badge badge-status {{ $item->link ? 'badge-success' : 'badge-danger' }}" 
+                                data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
+                              {{ $item->link ? 'Aktif' : 'Nonaktif' }}
+                          </span>
+                      
+                          <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
+                              {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
+                          </button>
+                      
+                          <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
+                              <i class="fas fa-edit"></i>
+                          </a>
+                      </div>
+                      
                     </td>
                     
                     </td>
