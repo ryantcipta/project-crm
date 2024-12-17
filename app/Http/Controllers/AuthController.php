@@ -22,29 +22,38 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-
+    
         // Ambil data request username dan password saja
         $credential = $request->only('username', 'password');
-
-        // Cek jika data username dan password valid (sesuai) dengan data
+    
+        // Cek jika data username dan password valid
         if (Auth::attempt($credential)) {
             // Kalau berhasil, simpan data user di variabel $user
-            // $user = Auth::user();
-
-            // // Jika username adalah admincrm, arahkan ke halaman admin
-            // if ($user->username === 'mdcrm') {
-            //     return redirect()->intended('/dashboard');
-            // }
-
-            // Jika bukan admincrm, arahkan ke dashboard umum
-            return redirect()->intended('/dashboard');
+            $user = Auth::user();
+    
+            // Jika level adalah MD, arahkan ke halaman admin
+            if ($user->level === 'MD') {
+                return redirect()->intended('/dashboard');
+            }
+            
+            // Jika level adalah D, arahkan ke halaman users
+            if ($user->level === 'D') {
+                return redirect()->intended('/users');
+            }
+    
+            // Jika level tidak valid, logout user dan tampilkan pesan error
+            Auth::logout();
+            return redirect('/login')
+                ->withInput()
+                ->withErrors(['login_gagal' => 'Anda tidak memiliki akses yang valid.']);
         }
-
-        // Jika tidak ada data user yang valid, kembalikan lagi ke halaman login
+    
+        // Jika autentikasi gagal, kembalikan ke halaman login
         return redirect('/login')
             ->withInput()
             ->withErrors(['login_gagal' => 'These credentials do not match our records.']);
     }
+    
 
     public function logout(Request $request)
     {

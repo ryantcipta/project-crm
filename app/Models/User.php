@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'kode_dealer',
         'nama_dealer',
+        'level',
     ];
 
     /**

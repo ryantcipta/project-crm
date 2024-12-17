@@ -62,8 +62,13 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="{{ route('auth.login') }}" method="POST">
+      <form action="{{ route('login') }}" method="POST">
         @csrf
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         @error('login_gagal')
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
           <strong>Warning!</strong> {{ $message }}

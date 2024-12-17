@@ -121,6 +121,10 @@
 <button class="toggle-btn" onclick="toggleMode()">Dark Mode</button>
 
 <div class="container">
+    <a href="{{route('logout')}}" class="dropdown-item">logout</a>
+        <div class="info">
+            <a href="#" class="d-block">{{Auth::user()->username}}</a>
+          </div>
     <h1>MASTER LINK</h1>
 
     <div class="cards-wrapper">
