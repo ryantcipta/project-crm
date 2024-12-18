@@ -207,7 +207,7 @@
         </div>
         <div class="card"> 
             <h2>List All View</h2>
-            <a href="{{ route('users.list') }}">List Data</a>
+            <a href="{{ route('users.all-list') }}">List Data</a>
         </div>
     </div>
 </div>
