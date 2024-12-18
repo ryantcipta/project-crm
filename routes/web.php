@@ -23,6 +23,7 @@ use App\Models\Departments;
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cek_login:MD']], function () {
+        Route::get('/');
         Route::get('/dashboard', [AdminController::class, 'index']);
         Route::get('/upload', [AdminController::class, 'upload']);
         Route::post('/upload',[AdminController::class, 'store'])->name('project.store');
