@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/users/home', [UserController::class, 'home'])->name('users.home');
         Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
         Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+        Route::get('/project/{id}/edit',[ProjectController::class, 'ShowEdit'])->name('project.edit');
+        Route::put('/project/{id}',[ProjectController::class, 'update'])->name('project.update');
 
     });
 });

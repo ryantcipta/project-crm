@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+     <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{url("plugins/fontawesome-free/css/all.min.css")}}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{url("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{url("plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{{url("plugins/jqvmap/jqvmap.min.css")}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{url("dist/css/adminlte.min.css")}}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{url("plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{url("plugins/daterangepicker/daterangepicker.css")}}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{url("plugins/summernote/summernote-bs4.min.css")}}">
+   <!-- DataTables -->
+   <link rel="stylesheet" href="{{url("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
+   <link rel="stylesheet" href="{{url("plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
+   <link rel="stylesheet" href="{{url("plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
 </head>
 <body>
     <!-- Navbar -->
@@ -36,68 +60,75 @@
 
         <div class="mb-3 text-end">
         <a href="{{ route('projects.create') }}" class="btn btn-primary">Tambah Project</a>
-        </div>
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead style="table-dark">
+              <tr>
+                <th>Departments</th>
+                <th>Nama Project</th>
+                <th>Link</th>
+                <th>Keterangan</th>
+                <th>Video Tutorial</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                {{-- @php
+                    $i = 1
+                @endphp --}}
 
-
-        <!-- Table -->
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
+                @foreach ($project as $item)
                 <tr>
-                    <th>No</th>
-                    <th>Departemen</th>
-                    <th>Nama Project</th>
-                    <th>Link</th>
-                    <th>Keterangan</th>
-                    <th>Video Tutorial</th>
-                    <th>Aksi</th>
+                  <td>{{$item->department->name_departments ?? 'Tidak ada'}}</td>
+                  <td>{{$item->nama_project}}</td>
+                  <td>
+                    @if ($item->link)
+                    <a href="{{ $item->link }}" target="_blank">Open Link</a>
+                    @else
+                        Kosong
+                    @endif
+                  </td>
+                  <td>{{$item->keterangan}}</td>
+                  <td>
+                    @if ($item->video_tutorial)
+                    <a href="{{ $item->video_tutorial}}" target="_blank">Open Video/PPT</a>
+                    @else
+                        Kosong
+                    @endif
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="badge badge-status {{ $item->link ? 'badge-success' : 'badge-danger' }}" 
+                            data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
+                          {{ $item->link ? 'Aktif' : 'Nonaktif' }}
+                      </span>
+                  
+                      {{-- <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
+                          {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
+                      </button>
+                   --}}
+                      <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
+                          <i class="fas fa-edit"></i>
+                      </a>
+                  </div>
+                  
+                </td>
+                
+                </td>
                 </tr>
-            </thead>
-            <tbody>
-                @isset($users)
-                    @forelse($users as $user)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $user->departemen }}</td>
-                            <td>{{ $user->nama_project }}</td>
-                            <td>
-                                <a href="{{ $user->link }}" target="_blank" class="text-decoration-none">{{ $user->link }}</a>
-                            </td>
-                            <td>{{ $user->keterangan }}</td>
-                            <td>
-                                @if($user->video_tutorial)
-                                    <a href="{{ $user->video_tutorial }}" target="_blank" class="btn btn-sm btn-info">Lihat Video</a>
-                                @else
-                                    <span class="text-muted">Tidak tersedia</span>
-                                @endif
-                            </td>
-                            
-                            <td>
-                                <!-- Edit Button -->
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-                                <!-- Delete Button -->
-                                @if(!empty($user->id))
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus pengguna ini?')">Hapus</button>
-                                    </form>
-                                @endif
-                            </td>               
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">Tidak ada data pengguna.</td>
-                        </tr>
-                    @endforelse
-                @else
-                    <tr>
-                        <td colspan="8" class="text-center">Data tidak tersedia.</td>
-                    </tr>
-                @endisset
-            </tbody>
-        </table>
-    </div>
+                @endforeach
+              </tbody>
+              {{-- <tfoot>
+              <tr>
+                <th>Nama Project</th>
+                <th>Link</th>
+                <th>Keterangan</th>
+                <th>Tugas Pending</th>
+                
+              </tr>
+              </tfoot> --}}
+            </table>
+          </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

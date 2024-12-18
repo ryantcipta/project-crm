@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function home()
     {
-        $users = User::all(); // Mengambil semua data pengguna
-        return view('users.home', compact('users'));
+
+        $user = Auth::user();
+        
+
+        $project = Project::with('user', 'department')
+                        ->where('user_id', $user->id) 
+                        ->get();
+
+        return view('users.home', compact('user', 'project'));
     }
 
     public function create()

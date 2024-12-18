@@ -65,16 +65,14 @@
                 @csrf
                 <div class="mb-3">
                     <label for="departemen" class="form-label">Departemen</label>
-                    <select name="departemen" id="departemen" class="form-select" required>
-                        <option value="" disabled selected>Pilih Departemen</option>
-                        <option value="Marketing (H1)">Marketing (H1)</option>
-                        <option value="HC3">HC3</option>
-                        <option value="TSD (H2)">TSD (H2)</option>
-                        <option value="Sparepart (H2)">Sparepart (H2)</option>
-                        <option value="Administrasi & Finance">Administrasi & Finance</option>
-                        <option value="Retail">Retail</option>
-                        <option value="Dealer/SO">Dealer/SO</option>
-                    </select>
+                    <select id="departments" class="form-control custom-select" name="department_id">
+                        <option selected disabled>Pilih Departments</option>
+                        @foreach ($departments as $item)
+                        <option value="{{$item->id}}">{{$item->name_departments}}</option>
+                            
+                        @endforeach
+                       
+                      </select>
                 </div>
 
                 <div class="mb-3">
