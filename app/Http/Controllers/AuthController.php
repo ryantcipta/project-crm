@@ -95,13 +95,31 @@ class AuthController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function sendResetLink(Request $request)
+    public function resetPassword(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
-        $status = Password::sendResetLink($request->only('email'));
+        // Validasi input dari form
+        $request->validate([
+            'username' => 'required|string',
+            'kode_dealer' => 'required|string',
+            'new_password' => 'required|string|min:6|confirmed',
+        ]);
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+        // Cari user berdasarkan username dan kode dealer
+        $user = User::where('username', $request->username)
+            ->where('kode_dealer', $request->kode_dealer)
+            ->first();
+
+        // Jika user tidak ditemukan, kembalikan pesan error
+        if (!$user) {
+            return back()->withErrors(['username' => 'Invalid username or dealer code.']);
+        }
+
+        // Update password user
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // Redirect ke halaman login dengan pesan sukses
+        return redirect()->route('login')->with('status', 'Password successfully reset.');
     }
+
 }

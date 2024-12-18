@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Management Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -87,14 +88,13 @@
             color: #ecf0f1;
         }
         .footer {
-    position: fixed; /* Menggunakan fixed agar footer selalu terlihat di bawah */
-    left: 50%; /* Menempatkan footer di tengah */
-    bottom: 20px; /* Menjaga jarak dari bawah */
-    transform: translateX(-50%); /* Menggeser footer ke kiri agar pas di tengah */
-    text-align: center;
-    color: #7f8c8d;
-}
-
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #7f8c8d;
+        }
         body.dark-mode .footer {
             color: #95a5a6;
         }
@@ -114,30 +114,100 @@
         .toggle-btn:hover {
             background-color: #1abc9c;
         }
+        /* Hamburger menu styles */
+        .hamburger-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #34495e;
+        }
+        .hamburger-menu i {
+            color: #34495e;
+        }
+        .menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #34495e;
+            color: #fff;
+            width: 200px;
+            height: 100vh;
+            padding: 20px;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .menu a:hover {
+            color: #1abc9c;
+        }
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #16a085;
+            border-radius: 4px;
+            color: #fff;
+            margin-bottom: 30px;
+            text-decoration: none;
+        }
+        .profile-btn img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .profile-btn span {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .menu.open {
+            display: flex;
+        }
     </style>
 </head>
 <body>
 
-<button class="toggle-btn" onclick="toggleMode()">Dark Mode</button>
+<!-- Hamburger menu button -->
+<button class="hamburger-menu" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+</button>
 
+<!-- Side menu -->
+<div class="menu" id="menu">
+    <div class="profile-btn">
+        <img src="https://via.placeholder.com/40" alt="Profile Icon"> <!-- Profile icon -->
+        <span>{{ Auth::user()->username }}</span>
+    </div>
+    <a href="#" onclick="toggleMode()">Dark Mode</a>
+    <a href="{{ route('logout') }}">Logout</a>
+</div>
+
+<!-- Main content -->
 <div class="container">
-    <a href="{{route('logout')}}" class="dropdown-item">logout</a>
-        <div class="info">
-            <a href="#" class="d-block">{{Auth::user()->username}}</a>
-          </div>
     <h1>MASTER LINK</h1>
 
     <div class="cards-wrapper">
         <div class="card">
             <h2>View Projects</h2>
-            <!-- Menggunakan route untuk mengarahkan ke users.index -->
             <a href="{{ route('users.home') }}">View All Projects</a>
         </div>
-        
         <div class="card">
             <h2>Upload Files</h2>
-            <!-- Menggunakan route untuk mengarahkan ke users.create -->
             <a href="{{ route('projects.create') }}">Upload Project Files</a>
+        </div>
+        <div class="card">
+            <h2>List View</h2>
+            <a href="{{ route('users.list') }}">List Data</a>
         </div>
     </div>
 </div>
@@ -149,6 +219,10 @@
 <script>
     function toggleMode() {
         document.body.classList.toggle('dark-mode');
+    }
+
+    function toggleMenu() {
+        document.getElementById('menu').classList.toggle('open');
     }
 </script>
 
