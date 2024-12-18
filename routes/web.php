@@ -23,7 +23,6 @@ use App\Models\Departments;
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cek_login:MD']], function () {
-        Route::get('/');
         Route::get('/dashboard', [AdminController::class, 'index']);
         Route::get('/upload', [AdminController::class, 'upload']);
         Route::post('/upload',[AdminController::class, 'store'])->name('project.store');
@@ -40,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         
     });
     Route::group(['middleware' => ['cek_login:D']], function () {
+        Route::get('/' , [UserController::class, 'index']);
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
         Route::post('/users', [UserController::class, 'store'])->name('users.store');
