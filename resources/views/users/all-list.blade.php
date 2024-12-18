@@ -61,7 +61,7 @@
                 <tbody>
                     @foreach ($project as $item)
                     <tr data-id="{{ $item->id }}">
-                        <td>{{$item->users->username ?? 'Tidak ada'}}</td>
+                        <td>{{$item->user->username ?? 'Tidak ada'}}</td>
                         <td>{{$item->department->name_departments ?? 'Tidak ada'}}</td>
                         <td>{{$item->nama_project}}</td>
                         <td>
