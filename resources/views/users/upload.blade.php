@@ -43,13 +43,18 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Aplikasi Laravel</a>
+            <a class="navbar-brand" href="#">Dashboard Users</a>
         </div>
     </nav>
 
     <!-- Main Content -->
     <div class="container mt-5">
         <div class="form-container mx-auto" style="max-width: 600px;">
+            <!-- Tombol Home -->
+            <div class="mb-3 text-start">
+                <a href="{{ route('users.index') }}" class="btn btn-secondary">Home</a>
+            </div>
+
             <h1 class="mb-4 text-center text-primary">Upload Project</h1>
 
             <!-- Flash Message -->
@@ -63,16 +68,15 @@
             <!-- Form -->
             <form action="{{ route('projects.store') }}" method="POST">
                 @csrf
+                <!-- Departemen Label -->
                 <div class="mb-3">
                     <label for="departemen" class="form-label">Departemen</label>
                     <select id="departments" class="form-control custom-select" name="department_id">
                         <option selected disabled>Pilih Departments</option>
                         @foreach ($departments as $item)
                         <option value="{{$item->id}}">{{$item->name_departments}}</option>
-                            
                         @endforeach
-                       
-                      </select>
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -95,25 +99,28 @@
                     <input type="url" name="video_tutorial" id="video_tutorial" class="form-control" placeholder="Masukkan link video tutorial">
                 </div>
 
-<button type="submit" class="btn btn-primary w-100">Upload Project</button>
-</form>
-</div>
-</div>
+                <button type="submit" class="btn btn-primary w-100">Upload Project</button>
+            </form>
+        </div>
+    </div>
 
-<!-- Footer -->
-<footer>
-    &copy; 2024 Aplikasi Laravel. All Rights Reserved.
-</footer>
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 CRM
+    </footer>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    function showLoginFields() {
-        document.getElementById("login-fields").style.display = "block";
-    }
+    <script>
+        function showLoginFields() {
+            document.getElementById("login-fields").style.display = "block";
+        }
 
-    function hideLoginFields() {
-        document.getElementById("login-fields").style.display = "none";
-    }
-</script>
+        function hideLoginFields() {
+            document.getElementById("login-fields").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
