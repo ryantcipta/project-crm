@@ -139,6 +139,11 @@
             <!-- Menggunakan route untuk mengarahkan ke users.create -->
             <a href="{{ route('projects.create') }}">Upload Project Files</a>
         </div>
+        <div class="card">
+            <h2>Upload Files</h2>
+            <!-- Menggunakan route untuk mengarahkan ke users.create -->
+            <a href="{{ route('users.list') }}">List Data</a>
+        </div>
     </div>
 </div>
 

@@ -66,3 +66,5 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.reg
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
+
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset-password');
