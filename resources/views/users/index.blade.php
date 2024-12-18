@@ -199,14 +199,14 @@
     <div class="cards-wrapper">
         <div class="card">
             <h2>View Projects</h2>
-            <a href="{{ route('users.home') }}">View All Projects</a>
+            <a href="{{ route('users.home') }}">List</a>
         </div>
         <div class="card">
             <h2>Upload Files</h2>
             <a href="{{ route('projects.create') }}">Upload Project Files</a>
         </div>
         <div class="card">
-            <h2>List View</h2>
+            <h2>List All View</h2>
             <a href="{{ route('users.list') }}">List Data</a>
         </div>
     </div>
