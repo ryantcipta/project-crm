@@ -64,3 +64,4 @@ Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name(
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register-page');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
+Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');

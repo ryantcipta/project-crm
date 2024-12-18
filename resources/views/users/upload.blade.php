@@ -97,32 +97,6 @@
                     <input type="url" name="video_tutorial" id="video_tutorial" class="form-control" placeholder="Masukkan link video tutorial">
                 </div>
 
-                <div class="mb-3">
-                <label for="must_login" class="form-label">Harus Login</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio"
-                    <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="must_login" id="must_login_yes" value="1" onclick="showLoginFields()">
-    <label class="form-check-label" for="must_login_yes">Ya</label>
-</div>
-<div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="must_login" id="must_login_no" value="0" onclick="hideLoginFields()">
-    <label class="form-check-label" for="must_login_no">Tidak</label>
-</div>
-
-<div id="login-fields" style="display: none;">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" name="username" id="username" class="form-control" placeholder="Masukkan username">
-    </div>
-
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password">
-    </div>
-</div>
-
 <button type="submit" class="btn btn-primary w-100">Upload Project</button>
 </form>
 </div>
