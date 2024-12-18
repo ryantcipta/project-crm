@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
         Route::get('/project/{id}/edit',[ProjectController::class, 'ShowEdit'])->name('project.edit');
         Route::put('/project/{id}',[ProjectController::class, 'update'])->name('project.update');
+        // web.php
+Route::post('/project/{id}/toggle-status', [ProjectController::class, 'toggleStatus'])->name('project.toggleStatus');
 
     });
 });
@@ -72,3 +74,4 @@ Route::post('/register', [AuthController::class, 'register'])->name('auth.regist
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
 
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset-password');
+

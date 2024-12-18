@@ -15,7 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">users list</li>
+                <li class="breadcrumb-item active">Users List</li>
             </ol>
         </div>
         </div>
@@ -46,7 +46,7 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{$user->username}}</td>
-                            <td>{{$user->password}}</td>
+                            <td>{{ str_repeat('*', strlen($user->password)) }}</td> <!-- Ganti password menjadi bintang -->
                             <td>{{Carbon\Carbon::parse($user->last_seen)->diffForHumans()}}</td>
                             <td>
                                 <span 

@@ -46,76 +46,98 @@
         <!-- Tabel Data -->
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
-              <thead style="table-dark">
-              <tr>
-                <th>Departments</th>
-                <th>Nama Project</th>
-                <th>Link</th>
-                <th>Keterangan</th>
-                <th>Video Tutorial</th>
-                <th>Action</th>
-              </tr>
-              </thead>
-              <tbody>
-                {{-- @php
-                    $i = 1
-                @endphp --}}
-
-                @foreach ($project as $item)
-                <tr>
-                  <td>{{$item->department->name_departments ?? 'Tidak ada'}}</td>
-                  <td>{{$item->nama_project}}</td>
-                  <td>
-                    @if ($item->link)
-                    <a href="{{ $item->link }}" target="_blank">Open Link</a>
-                    @else
-                        Kosong
-                    @endif
-                  </td>
-                  <td>{{$item->keterangan}}</td>
-                  <td>
-                    @if ($item->video_tutorial)
-                    <a href="{{ $item->video_tutorial}}" target="_blank">Open Video/PPT</a>
-                    @else
-                        Kosong
-                    @endif
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="badge badge-status {{ $item->link ? 'badge-success' : 'badge-danger' }}" 
-                            data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
-                          {{ $item->link ? 'Aktif' : 'Nonaktif' }}
-                      </span>
-                  
-                      <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
-                          {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
-                      </button>
-                  
-                      <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
-                          <i class="fas fa-edit"></i>
-                      </a>
-                  </div>
-                  
-                </td>
-                
-                </td>
-                </tr>
-                @endforeach
-              </tbody>
-              {{-- <tfoot>
-              <tr>
-                <th>Nama Project</th>
-                <th>Link</th>
-                <th>Keterangan</th>
-                <th>Tugas Pending</th>
-                
-              </tr>
-              </tfoot> --}}
+                <thead style="table-dark">
+                    <tr>
+                        <th>Departments</th>
+                        <th>Nama Project</th>
+                        <th>Link</th>
+                        <th>Keterangan</th>
+                        <th>Video Tutorial</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($project as $item)
+                    <tr data-id="{{ $item->id }}">
+                        <td>{{$item->department->name_departments ?? 'Tidak ada'}}</td>
+                        <td>{{$item->nama_project}}</td>
+                        <td>
+                            @if ($item->link)
+                            <a href="{{ $item->link }}" target="_blank">Open Link</a>
+                            @else
+                                Kosong
+                            @endif
+                        </td>
+                        <td>{{$item->keterangan}}</td>
+                        <td>
+                            @if ($item->video_tutorial)
+                            <a href="{{ $item->video_tutorial}}" target="_blank">Open Video/PPT</a>
+                            @else
+                                Kosong
+                            @endif
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <span class="badge badge-status {{ $item->link ? 'badge-success' : 'badge-danger' }}" 
+                                      data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
+                                    {{ $item->link ? 'Aktif' : 'Nonaktif' }}
+                                </span>
+                                
+                                <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
+                                    {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
+                                </button>
+                                
+                                <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Handle toggle button click
+        document.querySelectorAll('.toggle-status').forEach(button => {
+            button.addEventListener('click', function() {
+                var row = this.closest('tr');
+                var projectId = row.getAttribute('data-id');
+                var currentStatus = row.querySelector('.badge-status').dataset.status;
+                var newStatus = (currentStatus === 'aktif') ? 'nonaktif' : 'aktif';
+                
+                // Send AJAX request to toggle the status
+                fetch(`/project/${projectId}/toggle-status`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        status: newStatus
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the badge and button text
+                    if (data.status === 'aktif') {
+                        row.querySelector('.badge-status').classList.replace('badge-danger', 'badge-success');
+                        row.querySelector('.badge-status').textContent = 'Aktif';
+                        row.querySelector('.toggle-status').textContent = 'Nonaktifkan';
+                    } else {
+                        row.querySelector('.badge-status').classList.replace('badge-success', 'badge-danger');
+                        row.querySelector('.badge-status').textContent = 'Nonaktif';
+                        row.querySelector('.toggle-status').textContent = 'Aktifkan';
+                    }
+                })
+                .catch(error => console.error('Error toggling status:', error));
+            });
+        });
+    </script>
 </body>
 </html>

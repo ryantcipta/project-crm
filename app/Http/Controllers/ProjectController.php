@@ -76,4 +76,13 @@ class ProjectController extends Controller
        
         return redirect()->route('users.home')->with('success', 'Data project berhasil diperbarui.');
     }
+
+    public function toggleStatus($id)
+{
+    $project = Project::findOrFail($id);
+    $project->link = !$project->link; // Toggle the 'link' field (from true to false or vice versa)
+    $project->save();
+
+    return response()->json(['status' => $project->link ? 'aktif' : 'nonaktif']);
+}
 }
