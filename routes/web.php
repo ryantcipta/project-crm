@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/departments/{id}',[DepartmentsController::class, 'update'])->name('update.departments');
         Route::delete('departments/{id}', [DepartmentsController::class, 'destroy'])->name('delete.departments');
         
+        
     });
     Route::group(['middleware' => ['cek_login:D']], function () {
         Route::get('/' , [UserController::class, 'index']);
