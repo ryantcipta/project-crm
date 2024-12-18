@@ -50,4 +50,13 @@ class UserController extends Controller
     {
         return view('users.index');
     }
+
+
+     public function allList()
+    {
+        $project = Project::with('user','department')->get();
+        return view ('users.all-list', compact('project'));
+    }
+
+
 }

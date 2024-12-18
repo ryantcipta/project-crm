@@ -53,23 +53,18 @@
         <!-- Add Button -->
 
         <!-- Dealer Information -->
-        <div class="mb-4">
-            <strong>Kode Dealer: </strong> {{ Auth::user()->kode_dealer }}  <br>
-            <strong>Nama Dealer: </strong> {{ Auth::user()->nama_dealer }}
-        </div>
-
-        <div class="mb-3 text-end">
-        <a href="{{ route('projects.create') }}" class="btn btn-primary">Tambah Project</a>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
               <thead style="table-dark">
               <tr>
+
+                <th>Username</th>
                 <th>Departments</th>
                 <th>Nama Project</th>
                 <th>Link</th>
                 <th>Keterangan</th>
                 <th>Video Tutorial</th>
-                <th>Action</th>
+                <th>Status</th>
               </tr>
               </thead>
               <tbody>
@@ -79,6 +74,7 @@
 
                 @foreach ($project as $item)
                 <tr>
+                  <td>{{$item->users->username ?? 'Tidak ada'}}</td>
                   <td>{{$item->department->name_departments ?? 'Tidak ada'}}</td>
                   <td>{{$item->nama_project}}</td>
                   <td>
@@ -102,14 +98,7 @@
                             data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
                           {{ $item->link ? 'Aktif' : 'Nonaktif' }}
                       </span>
-                  
-                      <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
-                          {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
-                      </button>
-                  
-                      <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
-                          <i class="fas fa-edit"></i>
-                      </a>
+                      
                   </div>
                   
                 </td>
