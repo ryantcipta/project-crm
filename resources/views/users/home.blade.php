@@ -30,8 +30,8 @@
 
         <!-- Dealer Information -->
         <div class="mb-4">
-            <strong>Kode Dealer:</strong>  <br>
-            <strong>Nama Dealer:</strong>
+            <strong>Kode Dealer: </strong> {{ Auth::user()->kode_dealer }}  <br>
+            <strong>Nama Dealer: </strong> {{ Auth::user()->nama_dealer }}
         </div>
 
         <div class="mb-3 text-end">
