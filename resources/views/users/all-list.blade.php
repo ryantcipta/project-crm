@@ -111,7 +111,7 @@
                 var newStatus = (currentStatus === 'aktif') ? 'nonaktif' : 'aktif';
 
                 // Send AJAX request to toggle the status
-                fetch(`/project/${projectId}/toggle-status`, {
+                fetch(`/projects/${projectId}/toggle-status`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

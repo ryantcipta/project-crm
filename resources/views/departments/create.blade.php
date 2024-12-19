@@ -57,8 +57,8 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <a href="{{route('departments')}}" class="btn btn-secondary">Cancel</a>
-          <input type="submit" value="Submit" class="btn btn-success float-right">
+          <a href="{{route('departments')}}" class="btn btn-secondary" style="margin-right: 10px">Cancel</a>
+          <input type="submit" value="Submit" class="btn btn-success">
         </div>
       </div>
     </form>
