@@ -305,33 +305,34 @@
   });
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      // Temukan semua tombol toggle status
-      const toggleButtons = document.querySelectorAll('.toggle-status');
-  
-      toggleButtons.forEach((button) => {
-          button.addEventListener('click', function () {
-              const parent = this.closest('div'); // Dapatkan parent div
-              const badge = parent.querySelector('.badge-status'); // Temukan badge status
-              
-              // Ambil status saat ini dari badge
-              const currentStatus = badge.getAttribute('data-status');
-  
-              // Toggle status
-              const newStatus = currentStatus === 'aktif' ? 'nonaktif' : 'aktif';
-  
-              // Perbarui badge
-              badge.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1); // Aktif/Nonaktif
-              badge.setAttribute('data-status', newStatus);
-              badge.classList.toggle('badge-success', newStatus === 'aktif');
-              badge.classList.toggle('badge-danger', newStatus === 'nonaktif');
-  
-              // Perbarui teks tombol
-              this.textContent = newStatus === 'aktif' ? 'Nonaktifkan' : 'Aktifkan';
-          });
-      });
-  });
-  </script>
+  $(document).on('click', '.toggle-status', function () {
+const button = $(this);
+const projectId = button.data('id');
+
+$.ajax({
+    url: `/projects/${projectId}/toggle-status`,
+    type: 'PATCH',
+    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+    success: function (response) {
+        if (response.status_link) {
+            // Update button UI
+            const newStatus = response.status_link;
+            button.data('status', newStatus);
+            button.text(newStatus.charAt(0).toUpperCase() + newStatus.slice(1));
+            button.css('background-color', newStatus === 'aktif' ? 'green' : 'red');
+        } else {
+            alert('Gagal mendapatkan status baru');
+        }
+    },
+    error: function (xhr) {
+        console.error(xhr.responseText);
+        alert('Gagal mengubah status');
+    }
+});
+});
+
+
+</script>
   
 </body>
 </html>

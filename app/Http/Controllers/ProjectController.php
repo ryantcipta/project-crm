@@ -78,11 +78,21 @@ class ProjectController extends Controller
     }
 
     public function toggleStatus($id)
-{
-    $project = Project::findOrFail($id);
-    $project->link = !$project->link; // Toggle the 'link' field (from true to false or vice versa)
-    $project->save();
+    {
+        try {
+            $project = Project::findOrFail($id);
+    
+            // Toggle status
+            $project->status_link = $project->status_link === 'aktif' ? 'nonaktif' : 'aktif';
+            $project->save();
+    
+            return response()->json(['status_link' => $project->status_link], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal mengubah status'], 500);
+        }
+    }
+    
+    
 
-    return response()->json(['status' => $project->link ? 'aktif' : 'nonaktif']);
-}
+    
 }

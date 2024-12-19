@@ -78,20 +78,23 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <span class="badge badge-status {{ $item->link ? 'badge-success' : 'badge-danger' }}" 
-                                      data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
-                                    {{ $item->link ? 'Aktif' : 'Nonaktif' }}
-                                </span>
-                                
-                                <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
-                                    {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
+                                <!-- Tombol Status -->
+                                <button class="btn toggle-status" 
+                                        data-id="{{ $item->id }}" 
+                                        data-status="{{ $item->status_link }}" 
+                                        style="margin-left: 10px; background-color: {{ $item->status_link === 'aktif' ? 'green' : 'red' }}; color: white; width: 100px;">
+                                    {{ ucfirst($item->status_link) }}
                                 </button>
-                                
-                                <a href="{{route('projects.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
+                        
+                                <!-- Tombol Edit -->
+                                <a href="{{route('projects.edit', $item->id)}}" 
+                                   class="btn btn-primary ms-2" 
+                                   title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </div>
                         </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -102,42 +105,38 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
-        // Handle toggle button click
-        document.querySelectorAll('.toggle-status').forEach(button => {
-            button.addEventListener('click', function() {
-                var row = this.closest('tr');
-                var projectId = row.getAttribute('data-id');
-                var currentStatus = row.querySelector('.badge-status').dataset.status;
-                var newStatus = (currentStatus === 'aktif') ? 'nonaktif' : 'aktif';
-                
-                // Send AJAX request to toggle the status
-                fetch(`/project/${projectId}/toggle-status`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        status: newStatus
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Update the badge and button text
-                    if (data.status === 'aktif') {
-                        row.querySelector('.badge-status').classList.replace('badge-danger', 'badge-success');
-                        row.querySelector('.badge-status').textContent = 'Aktif';
-                        row.querySelector('.toggle-status').textContent = 'Nonaktifkan';
-                    } else {
-                        row.querySelector('.badge-status').classList.replace('badge-success', 'badge-danger');
-                        row.querySelector('.badge-status').textContent = 'Nonaktif';
-                        row.querySelector('.toggle-status').textContent = 'Aktifkan';
-                    }
-                })
-                .catch(error => console.error('Error toggling status:', error));
-            });
-        });
+      $(document).on('click', '.toggle-status', function () {
+    const button = $(this);
+    const projectId = button.data('id');
+
+    $.ajax({
+        url: `/projects/${projectId}/toggle-status`,
+        type: 'PATCH',
+        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+        success: function (response) {
+            if (response.status_link) {
+                // Update button UI
+                const newStatus = response.status_link;
+                button.data('status', newStatus);
+                button.text(newStatus.charAt(0).toUpperCase() + newStatus.slice(1));
+                button.css('background-color', newStatus === 'aktif' ? 'green' : 'red');
+            } else {
+                alert('Gagal mendapatkan status baru');
+            }
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert('Gagal mengubah status');
+        }
+    });
+});
+
+
     </script>
+    
+  
 </body>
 </html>

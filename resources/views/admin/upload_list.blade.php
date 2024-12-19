@@ -83,15 +83,12 @@
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
-                          <span class="badge badge-status {{ $item->link ? 'badge-success' : 'badge-danger' }}" 
-                                data-status="{{ $item->link ? 'aktif' : 'nonaktif' }}">
-                              {{ $item->link ? 'Aktif' : 'Nonaktif' }}
-                          </span>
-                      
-                          <button type="button" class="btn btn-sm btn-warning toggle-status" style="margin-left: 10px;">
-                              {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
+                          <button class="btn toggle-status" 
+                                  data-id="{{ $item->id }}" 
+                                  data-status="{{ $item->status_link }}" 
+                                  style="margin-left: 10px; background-color: {{ $item->status_link === 'aktif' ? 'green' : 'red' }}; color: white; width: 100px;">
+                                  {{ ucfirst($item->status_link) }}
                           </button>
-                      
                           <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
                               <i class="fas fa-edit"></i>
                           </a>

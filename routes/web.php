@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/departments/{id}/edit',[DepartmentsController::class, 'edit'])->name('edit.departments');
         Route::put('/departments/{id}',[DepartmentsController::class, 'update'])->name('update.departments');
         Route::delete('departments/{id}', [DepartmentsController::class, 'destroy'])->name('delete.departments');
-        
+        Route::patch('/projects/{id}/toggle-status', [ProjectController::class, 'toggleStatus']);
         
     });
     Route::group(['middleware' => ['cek_login:D']], function () {
@@ -54,7 +54,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/projects/{id}/edit',[ProjectController::class, 'ShowEdit'])->name('projects.edit');
         Route::put('/projects/{id}',[ProjectController::class, 'update'])->name('projects.update');
         // web.php
-Route::post('/project/{id}/toggle-status', [ProjectController::class, 'toggleStatus'])->name('project.toggleStatus');
+        Route::patch('/projects/{id}/toggle-status', [ProjectController::class, 'toggleStatus']);
+
+
+
 
     });
 });
