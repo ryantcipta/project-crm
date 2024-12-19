@@ -94,4 +94,18 @@ class AdminController extends Controller
     }
     
 
+    public function toggleStatus($id)
+    {
+        try {
+            $project = Project::findOrFail($id);
+    
+            // Toggle status
+            $project->status_link = $project->status_link === 'aktif' ? 'nonaktif' : 'aktif';
+            $project->save();
+    
+            return response()->json(['status_link' => $project->status_link], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal mengubah status'], 500);
+        }
+    }
 }

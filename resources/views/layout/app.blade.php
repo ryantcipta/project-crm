@@ -310,7 +310,7 @@ const button = $(this);
 const projectId = button.data('id');
 
 $.ajax({
-    url: `/projects/${projectId}/toggle-status`,
+    url: `/project/${projectId}/toggle-status`,
     type: 'PATCH',
     headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
     success: function (response) {
