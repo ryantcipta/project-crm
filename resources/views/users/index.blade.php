@@ -205,10 +205,6 @@
             <h2>Upload Files</h2>
             <a href="{{ route('projects.create') }}">Upload Project Files</a>
         </div>
-        <div class="card"> 
-            <h2>List All View</h2>
-            <a href="{{ route('users.all-list') }}">List Data</a>
-        </div>
     </div>
 </div>
 
