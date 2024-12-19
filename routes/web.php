@@ -51,8 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/users/all-list', [UserController::class, 'allList'])->name('users.all-list');
         Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
         Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
-        Route::get('/projects/{id}/edit',[ProjectController::class, 'ShowEdit'])->name('projects.edit');
-        Route::put('/projects/{id}',[ProjectController::class, 'update'])->name('projects.update');
+        Route::get('/project/{id}/edit',[ProjectController::class, 'ShowEdit'])->name('project.edit');
+        Route::put('/project/{id}',[ProjectController::class, 'update'])->name('project.update');
         // web.php
 Route::post('/project/{id}/toggle-status', [ProjectController::class, 'toggleStatus'])->name('project.toggleStatus');
 
@@ -74,4 +74,6 @@ Route::post('/register', [AuthController::class, 'register'])->name('auth.regist
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
 
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset-password');
+Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+
 

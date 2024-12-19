@@ -87,7 +87,7 @@
                                     {{ $item->link ? 'Nonaktifkan' : 'Aktifkan' }}
                                 </button>
                                 
-                                <a href="{{route('projects.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
+                                <a href="{{route('project.edit', $item->id)}}" class="btn btn-sm btn-primary" title="Edit" style="margin-left: 10px;">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </div>
